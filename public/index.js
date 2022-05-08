@@ -118,7 +118,7 @@ const putBotBack = (id) => {
 };
 
 const drawFive = () => {
-  axios.get("http://localhost:3000/api/robots/five").then((res) => {
+  axios.get("/api/robots/five").then((res) => {
     choices = res.data.choices;
     compDuo = res.data.compDuo;
     renderChoices();
@@ -136,13 +136,11 @@ const duel = () => {
     .querySelectorAll(".bot-btn")
     .forEach((btn) => btn.classList.add("hide"));
   setTimeout(() => {
-    axios
-      .post("http://localhost:3000/api/duel", { compDuo, playerDuo })
-      .then(({ data }) => {
-        resultsText.textContent = data;
-        playAgainBtn.classList.remove("hide");
-        getPlayerStats();
-      });
+    axios.post("/api/duel", { compDuo, playerDuo }).then(({ data }) => {
+      resultsText.textContent = data;
+      playAgainBtn.classList.remove("hide");
+      getPlayerStats();
+    });
   }, 1500);
 };
 
@@ -160,16 +158,14 @@ const reset = () => {
 };
 
 const getPlayerStats = () => {
-  axios
-    .get("http://localhost:3000/api/player")
-    .then(({ data: { wins, losses } }) => {
-      winsText.textContent = `Wins: ${wins}`;
-      lossesTest.textContent = `Losses: ${losses}`;
-    });
+  axios.get("/api/player").then(({ data: { wins, losses } }) => {
+    winsText.textContent = `Wins: ${wins}`;
+    lossesTest.textContent = `Losses: ${losses}`;
+  });
 };
 
 const getAllBots = () => {
-  axios.get("http://localhost:3000/api/robots").then(({ data }) => {
+  axios.get("/api/robots").then(({ data }) => {
     allBotsDiv.innerHTML = "";
 
     data.forEach((bot) => {
