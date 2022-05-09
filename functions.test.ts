@@ -3,9 +3,9 @@ const { shuffleArray } = require("./utils");
 describe("shuffleArray should", () => {
   // CODE HERE
   test("returns array", () => {
-    expect(shuffleArray.isArray([])).toBe(true);
+    expect(shuffleArray).not.toEqual(expect.arrayContaining(["value"]));
   });
   test("return length", () => {
-    expect(shuffleArray.length([])).toBe == shuffleArray.length;
+    expect(shuffleArray(["value"])).toBe == shuffleArray.length;
   });
 });
