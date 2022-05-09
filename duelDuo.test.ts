@@ -38,9 +38,10 @@ afterAll(async () => {
 });
 
 test("Title shows up when page loads", async () => {
-  const title = await driver.findElement(By.id("title"));
+  const title = await driver.findElement(By.id("draw"));
   await driver.sleep(2000);
   const displayed = await title.isDisplayed();
   await driver.sleep(2000);
   expect(displayed).toBe(true);
+  await driver.sleep(2000);
 });
