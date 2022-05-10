@@ -1,4 +1,5 @@
 import { Builder, Capabilities, By } from "selenium-webdriver";
+import { convertToObject, idText } from "typescript";
 
 require("chromedriver");
 
@@ -25,10 +26,8 @@ test("draw button displays div id = choices", async () => {
   await driver.sleep(2000);
   expect(draw);
 });
-// this thing was throwing errors before i even added to it.
-//instructions say nothing about fixing it so im gonna move on for now.
 /////////////////////////my code///////////////////////////////
-
+//test#1 : i feel like im really close with this.
 beforeEach(async () => {
   driver.get("http://localhost:3000/");
 });
@@ -37,11 +36,13 @@ afterAll(async () => {
   driver.quit();
 });
 
-test("Title shows up when page loads", async () => {
-  const title = await driver.findElement(By.id("draw"));
+test("Draw button id", async () => {
+  const drawButton = await driver.findElement(By.id("draw"));
   await driver.sleep(2000);
-  const displayed = await title.isDisplayed();
-  await driver.sleep(2000);
-  expect(displayed).toBe(true);
+  await drawButton.click();
+  const displayed = await drawButton.isDisplayed();
+  await driver.sleep(1000);
+  expect(displayed).toBe("choices");
+
   await driver.sleep(2000);
 });
