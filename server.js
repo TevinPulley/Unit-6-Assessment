@@ -1,5 +1,7 @@
 const express = require("express");
 const path = require("path");
+const Rollbar = require("rollbar");
+const { textChangeRangeIsUnchanged } = require("typescript");
 const app = express();
 const { bots, playerRecord } = require("./data");
 const { shuffleArray } = require("./utils");
@@ -7,6 +9,14 @@ const { shuffleArray } = require("./utils");
 app.use(express.json());
 
 app.use(express.static("public"));
+
+const rollbar = new Rollbar({
+  accessToken: "cd6b50a15ad348d19c9b7a155e55f180",
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+});
+
+rollbar.log("hello world!");
 
 app.get("/styles", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.css"));
@@ -21,6 +31,7 @@ app.get("/api/robots", (req, res) => {
     res.status(200).send(botsArr);
   } catch (error) {
     console.log("ERROR GETTING BOTS", error);
+    rollbar.log("error getting bots");
     res.sendStatus(400);
   }
 });
